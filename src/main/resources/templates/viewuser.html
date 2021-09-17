@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1">
+    <title>View Users</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <div class="container-flude">
+        <h1>View Users</h1>
+    <div th:switch="${system_user}">
+<!--        <h2 th:switch="null"> User List is Empty</h2>-->
+        <div th:case="*">
+
+            <div>
+                <table class="table table-bordered border-primary">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Address</th>
+                        <th>Functions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="system_user : ${system_user}">
+                        <td th:text="${system_user.sysuname}"></td>
+                        <td th:text="${system_user.upass}"></td>
+                        <td th:text="${system_user.uaddress}"></td>
+
+                        <td>
+                            <a th:href="@{/viewedituserform/{id} (id=${system_user.sysid})}" class="btn btn-secondary">Update</a>
+                            <a th:href="@{/deleteuser/{id} (id=${system_user.sysid})}" class="btn btn-danger" onclick="if (!(confirm('Are you sure you want to remove this User'))) return false">Remove</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-success" onclick="location.href='/showadduser'" type="button">Add New User</button>
+        </div>
+
+    </div>
+    </div>
+
+</body>
+</html>
